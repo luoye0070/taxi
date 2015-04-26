@@ -1,0 +1,10 @@
+target/
+test/
+.idea/
+.classpath
+.project
+application.properties
+taxi.iml
+workspace.xml
+taxi-grailsPlugins.iml
+work/

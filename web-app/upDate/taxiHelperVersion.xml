@@ -1,0 +1,11 @@
+﻿<taxiHelperVersion>
+	<app>
+		<appName value='taxiHelper'/>
+		<verCode value='3'/>
+		<verName value='2.0.1'/>
+		<apkSize value='1998848'/>
+		<updateInfo>
+						更新内容：&lt;br/&gt;1、对界面进行了优化&lt;br/&gt;2、新增菜单栏，以便进行评价、修改密码、提出建议等操作&lt;br/&gt;3、增加了加价打车功能，以提高打车成功率&lt;br/&gt;4、增加了查看周围在线的司机，并且进行打车时，能看到司机的行驶路线&lt;br/&gt;
+			</updateInfo>
+	</app>
+</taxiHelperVersion>

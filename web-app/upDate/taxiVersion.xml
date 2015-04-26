@@ -1,0 +1,11 @@
+﻿<taxiVersion>
+	<app>
+		<appName value='taxi'/>
+		<verCode value='4'/>
+		<verName value='2.1.0'/>
+		<apkSize value='2011136'/>
+		<updateInfo>
+更新内容：&lt;br/&gt;1、对界面进行了调整&lt;br/&gt;2、新增语音提示，播报直线距离最近的订单，以供参考&lt;br/&gt;
+			</updateInfo>
+	</app>
+</taxiVersion>
