@@ -46,9 +46,9 @@ class PhoneDemandController {
             and{
                 eq("state",0)
 //                测试时注释
-                between("latitude",latitudeMin,latitudeMax)
-                between("longitude",longitudeMin,longitudeMax)
-                between("serverTime",startTime,endTime)
+//                between("latitude",latitudeMin,latitudeMax)
+//                between("longitude",longitudeMin,longitudeMax)
+//                between("serverTime",startTime,endTime)
             }
         }
         def a=latitudeTaxi+longitudeTaxi
@@ -124,6 +124,7 @@ class PhoneDemandController {
                     taxiList.state = 0
                     taxiList.hike = demand.hike
                     taxiList.nickName = demand.nickName
+                    taxiList.route=demand.route;
                     if(taxiList.save(flush: true) && !demand.delete(flush: true))
                     {
                         render time

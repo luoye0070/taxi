@@ -61,6 +61,7 @@ class PhoneCustomerController {
             demand.longitude = Double.parseDouble(params.longitude)
             demand.hike = params.hike
             demand.hike = 0
+            //demand.route=Route.get(Long.parseLong(params.routeId));
             demand.save(flush: true)
             render "1"
         }

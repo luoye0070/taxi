@@ -81,6 +81,7 @@ class easyuiLayoutController {
                     "userRole": it.userRole
             ]
         }
+        println(relist);
         render relist as JSON
     }
 
@@ -224,6 +225,7 @@ class easyuiLayoutController {
                 ]
             }
         }
+        println("relist->"+relist);
         render relist as JSON
     }
 
