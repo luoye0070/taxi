@@ -18,3 +18,11 @@
 	<g:textField name="toStation" maxlength="128" required="" value="${routeInstance?.toStation}"/>
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: routeInstance, field: 'name', 'error')} required">
+	<label for="name">
+		<g:message code="route.name.label" default="Name" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:textArea name="name" cols="40" rows="5" maxlength="256" required="" value="${routeInstance?.name}"/>
+</div>
+

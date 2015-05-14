@@ -34,25 +34,29 @@
                         {
                         $('#usertable').datagrid('endEdit', lastIndex);
                     $('#usertable').datagrid('appendRow',{
-                            
-                            nickName:"",
-                            
-                            phoneNum:"",
-                            
-                            state:"",
-                            
-                            filePath:"",
-                            
-                            latitude:"",
-                            
-                            longitude:"",
-                            
-                            serverTime:"",
-                            
-                            time:""
-                            
+                        
+                        nickName:"",
+                        
+                        phoneNum:"",
+                        
+                        state:"",
+                        
+                        route:"",
+                        
+                        filePath:"",
+                        
+                        hike:"",
+                        
+                        latitude:"",
+                        
+                        longitude:"",
+                        
+                        serverTime:"",
+                        
+                        time:""
+                        
                         });
-                        lastIndex = $('#usertable').datagrid('getRows').length-1;
+                     lastIndex = $('#usertable').datagrid('getRows').length-1;
                     $('#usertable').datagrid('selectRow', lastIndex);
                     $('#usertable').datagrid('beginEdit', lastIndex);
                     }
@@ -79,9 +83,9 @@
                                         var index = $('#usertable').datagrid('getRowIndex', row);
                                            $('#usertable').datagrid('deleteRow', index);
                                            $.messager.show({
-                                        title : '提示',
-                                        msg : response.msg
-                                    });
+                                           title : '提示',
+                                           msg : response.msg
+                                            });
                                     }
                                     else{
                                     $.messager.alert('提示', response.msg, 'error');
@@ -119,16 +123,16 @@
                 }
             }],
             onBeforeLoad:function(){
-            $(this).datagrid('rejectChanges');
+                $(this).datagrid('rejectChanges');
             },
             onClickRow:function(rowIndex){
                 if (lastIndex > -1 && lastIndex != rowIndex){
-                $.messager.alert('提示', '您没有结束之前编辑的数据，请先保存或取消编辑！', 'error');
+                    $.messager.alert('提示', '您没有结束之前编辑的数据，请先保存或取消编辑！', 'error');
                 }
                 else	if (lastIndex != rowIndex){
-                $('#usertable').datagrid('endEdit', lastIndex);
+                    $('#usertable').datagrid('endEdit', lastIndex);
                     $('#usertable').datagrid('beginEdit', rowIndex);
-                    lastIndex = rowIndex;
+                     lastIndex = rowIndex;
                 }
             },
             onAfterEdit : function(rowIndex, rowData, changes){
@@ -198,7 +202,11 @@
         
         <th field="state" width="100" align="right" editor="text"><g:message code="demand.state.label" default="State" /></th>
         
+        <th field="route" width="100" align="right" editor="text"><g:message code="demand.route.label" default="Route" /></th>
+        
         <th field="filePath" width="100" align="right" editor="text"><g:message code="demand.filePath.label" default="File Path" /></th>
+        
+        <th field="hike" width="100" align="right" editor="text"><g:message code="demand.hike.label" default="Hike" /></th>
         
         <th field="latitude" width="100" align="right" editor="text"><g:message code="demand.latitude.label" default="Latitude" /></th>
         

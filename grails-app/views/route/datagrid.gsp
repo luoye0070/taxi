@@ -27,7 +27,9 @@
                     
                     {title:'<g:message code="route.fromStation.label" default="From Station" />',field:'fromStation',width:100,sortable:true},
                     
-                    {title:'<g:message code="route.toStation.label" default="To Station" />',field:'toStation',width:100,sortable:true}
+                    {title:'<g:message code="route.toStation.label" default="To Station" />',field:'toStation',width:100,sortable:true},
+                    
+                    {title:'<g:message code="route.name.label" default="Name" />',field:'name',width:100,sortable:true}
                     
                 ]],
                 
@@ -137,7 +139,9 @@
         
         fromStation:rowData.fromStation,
         
-        toStation:rowData.toStation
+        toStation:rowData.toStation,
+        
+        name:rowData.name
         
         });
         }
@@ -189,6 +193,15 @@
                 <label for="toStation"><g:message code="route.toStation.label" default="To Station" /></label>
                 
                 <input class="easyui-validatebox" type="text" name="toStation"></input>
+                
+                
+            </div>
+            
+            <div>
+
+                <label for="name"><g:message code="route.name.label" default="Name" /></label>
+                
+                <input class="easyui-validatebox" type="text" name="name"></input>
                 
                 
             </div>

@@ -50,11 +50,29 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${demandInstance?.route}">
+				<li class="fieldcontain">
+					<span id="route-label" class="property-label"><g:message code="demand.route.label" default="Route" /></span>
+					
+						<span class="property-value" aria-labelledby="route-label"><g:link controller="route" action="show" id="${demandInstance?.route?.id}">${demandInstance?.route?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if>
+			
 				<g:if test="${demandInstance?.filePath}">
 				<li class="fieldcontain">
 					<span id="filePath-label" class="property-label"><g:message code="demand.filePath.label" default="File Path" /></span>
 					
 						<span class="property-value" aria-labelledby="filePath-label"><g:fieldValue bean="${demandInstance}" field="filePath"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${demandInstance?.hike}">
+				<li class="fieldcontain">
+					<span id="hike-label" class="property-label"><g:message code="demand.hike.label" default="Hike" /></span>
+					
+						<span class="property-value" aria-labelledby="hike-label"><g:fieldValue bean="${demandInstance}" field="hike"/></span>
 					
 				</li>
 				</g:if>

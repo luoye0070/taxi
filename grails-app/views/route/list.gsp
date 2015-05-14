@@ -37,7 +37,9 @@
                         
                         fromStation:"",
                         
-                        toStation:""
+                        toStation:"",
+                        
+                        name:""
                         
                         });
                      lastIndex = $('#usertable').datagrid('getRows').length-1;
@@ -183,6 +185,8 @@
         <th field="fromStation" width="100" align="right" editor="text"><g:message code="route.fromStation.label" default="From Station" /></th>
         
         <th field="toStation" width="100" align="right" editor="text"><g:message code="route.toStation.label" default="To Station" /></th>
+        
+        <th field="name" width="100" align="right" editor="text"><g:message code="route.name.label" default="Name" /></th>
         
     </tr>
     </thead>

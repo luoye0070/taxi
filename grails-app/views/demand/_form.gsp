@@ -26,12 +26,28 @@
 	<g:field name="state" type="number" value="${demandInstance.state}" required=""/>
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: demandInstance, field: 'route', 'error')} ">
+	<label for="route">
+		<g:message code="demand.route.label" default="Route" />
+		
+	</label>
+	<g:select id="route" name="route.id" from="${taxi.Route.list()}" optionKey="id" value="${demandInstance?.route?.id}" class="many-to-one" noSelection="['null': '']"/>
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: demandInstance, field: 'filePath', 'error')} ">
 	<label for="filePath">
 		<g:message code="demand.filePath.label" default="File Path" />
 		
 	</label>
 	<g:textField name="filePath" value="${demandInstance?.filePath}"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: demandInstance, field: 'hike', 'error')} ">
+	<label for="hike">
+		<g:message code="demand.hike.label" default="Hike" />
+		
+	</label>
+	<g:textField name="hike" value="${demandInstance?.hike}"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: demandInstance, field: 'latitude', 'error')} required">
