@@ -104,3 +104,6 @@ grails.plugins.springsecurity.useSecurityEventListener = true
 grails.plugin.xyz.someTriggerConfig = {
     cron cronExpression: "0/20 * * * * ?"
 }
+
+
+grails.config.baseUrl="http://luoye-lj.xicp.net/taxi";

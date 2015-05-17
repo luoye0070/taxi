@@ -11,11 +11,12 @@ class Demand {
     String filePath
     Date serverTime
     String hike     /****  2013-12-2 10:10 增加的加价字段  by 黄证 ****/
-    Route route; //路线
+    String route; //路线
     static constraints = {
-        nickName(size: 2..12)
+        nickName(size: 2..64)
         phoneNum(size: 11..11)
         state(size:1..1)
+        filePath(nullable: true,blank:true);
         route(nullable: true);
     }
 }

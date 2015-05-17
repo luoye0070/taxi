@@ -7,9 +7,9 @@ class Customer {
     Date dateCreated
 
     static constraints = {
-        nickName(size: 2..12,blank: false)
-        phoneNum(size: 11..11,blank: false)
-        password(size: 6..20,blank: false)
+        nickName(size: 2..64,blank: false)
+        phoneNum(size: 11..11,blank: true,nullable: true)
+        password(size: 6..20,blank: true,nullable: true)
         dateCreated(nullable: true)
     }
 }
