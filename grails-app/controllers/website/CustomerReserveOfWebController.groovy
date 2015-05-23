@@ -14,6 +14,7 @@ import org.xml.sax.InputSource
 import taxi.Customer
 import taxi.Demand
 import taxi.Invalidation
+import taxi.Reserve
 import taxi.Route
 
 import javax.servlet.http.Cookie
@@ -22,7 +23,7 @@ import javax.xml.parsers.DocumentBuilderFactory
 import java.nio.charset.Charset
 import java.text.SimpleDateFormat
 
-class CustomerOfWebController {
+class CustomerReserveOfWebController {
     String appId = "wx3ebc66f5e756f12c";
     String appsecret="370b4e753d526da116c6c2cc3c9fdedf";
     String sToken = "7GkZrM";
@@ -67,7 +68,7 @@ class CustomerOfWebController {
             nickName=new Date().getTime();
             writeCookie("nickName",nickName+"",365);
 //            errors="用户信息缺失，请返回重试";
-//            render(view: "/demandRequest/request",model: [errors:errors,msgs:msgs]);
+//            render(view: "/reserveRequest/request",model: [errors:errors,msgs:msgs]);
 //            return;
         }
         nickName=nickName.toString().trim();
@@ -79,24 +80,24 @@ class CustomerOfWebController {
             customer.phoneNum="";
             if(!customer.save(flush: true)){
                 errors=g.message(error: customer.errors.allErrors.get(0));
-                render(view: "/demandRequest/request",model: [errors:errors,msgs:msgs]);
+                render(view: "/reserveRequest/request",model: [errors:errors,msgs:msgs]);
                 return;
             }
         }
         session.setAttribute("nickName",nickName);
 
-        def demand =null;
+        def reserve =null;
         //从session中获取phone
         String phoneNum=customer.phoneNum;
         if(phoneNum){
-            demand = Demand.findByPhoneNum(phoneNum);
+            reserve = Reserve.findByPhoneNum(phoneNum);
         }
-        if(demand){//显示打车信息
-            render(view: "/demandRequest/demand",model: [demandInstance:demand,errors:errors,msgs:msgs]);
+        if(reserve){//显示打车信息
+            render(view: "/reserveRequest/reserve",model: [reserveInstance:reserve,errors:errors,msgs:msgs]);
         }else{//显示输入电话号码、加价、路线的界面
-            demand =new Demand();
-            demand.nickName=nickName;
-            demand.phoneNum=phoneNum;
+            reserve =new Reserve();
+            reserve.nickName=nickName;
+            reserve.phoneNum=phoneNum;
 
             //微信接口需要的数据
             String baseUrl= grailsApplication.config.grails.config.baseUrl;
@@ -111,7 +112,7 @@ class CustomerOfWebController {
             String nonceStr=signHash.get("nonceStr"); // 必填，生成签名的随机串
             String signature=signHash.get("signature");// 必填，签名，见附录1
 
-            render(view: "/demandRequest/request",model: [demandInstance:demand,errors:errors,msgs:msgs,appId:appId,timestamp:timestamp,nonceStr:nonceStr,signature:signature]);
+            render(view: "/reserveRequest/request",model: [reserveInstance:reserve,errors:errors,msgs:msgs,appId:appId,timestamp:timestamp,nonceStr:nonceStr,signature:signature]);
         }
     }
 
@@ -147,16 +148,15 @@ class CustomerOfWebController {
             return;
         }
 
-        def demand = new Demand()
+        def reserve = new Reserve()
         def now = new Date();
-        demand.serverTime = now
-        demand.time = now;//params.time
-        demand.nickName = params.nickName
-        demand.filePath = params.filePath
-        demand.latitude = Double.parseDouble(params.latitude)
-        demand.longitude = Double.parseDouble(params.longitude)
-        demand.hike = params.hike
-        //demand.hike = 0
+        try {
+            now=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(params.time);
+        }catch (Exception ex){}
+        reserve.time = now
+        reserve.time = now;//params.time
+        reserve.nickName = params.nickName
+        //reserve.hike = 0
         long routeId=0;
         try{routeId=Long.parseLong(params.routeId);}catch (Exception ex){}
         Route route=Route.get(routeId);
@@ -166,15 +166,17 @@ class CustomerOfWebController {
             redirect(action:  "getOrCreateOrder");
             return;
         }
-        demand.route=route.name;
-        demand.phoneNum=params.phoneNum;
-        if(demand.save(flush: true)){
+        reserve.route=route;
+        reserve.start=route.fromStation;
+        reserve.destination=route.toStation;
+        reserve.phoneNum=params.phoneNum;
+        if(reserve.save(flush: true)){
             //session.setAttribute("phone",params.phoneNum);
             flash.msgs="订单创建成功，等待司机抢单";
             redirect(action:  "getOrCreateOrder");
         }else {
-            errors=g.message(error: demand.errors.allErrors.get(0));
-            render(view: "/demandRequest/request",model: [demandInstance:demand,errors:errors,msgs:msgs]);
+            errors=g.message(error: reserve.errors.allErrors.get(0));
+            render(view: "/reserveRequest/request",model: [reserveInstance:reserve,errors:errors,msgs:msgs]);
         }
     }
 
@@ -185,18 +187,11 @@ class CustomerOfWebController {
         try{
             id=Long.parseLong(params.id);
         }catch (Exception ex){}
-        def demand = Demand.get(id);
-        if (demand&&demand.state == 0)
+        def reserve = Reserve.get(id);
+        if (reserve&&reserve.state == 0)
         {
             try{
-                def invalidation = new Invalidation()
-                invalidation.phoneNum = demand.phoneNum
-                invalidation.state = demand.state
-                invalidation.latitude = demand.latitude
-                invalidation.longitude = demand.longitude
-                invalidation.time = demand.time
-                invalidation.hike = demand.hike             /**  2013-12-2:12:20 **/
-                if(!demand.delete(flush: true) && invalidation.save(flush: true)){
+                if(!reserve.delete(flush: true)){
                     flash.msgs="订单已经成功取消";
                     flash.errors=null;
                 }

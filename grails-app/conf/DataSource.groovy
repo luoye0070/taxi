@@ -26,6 +26,7 @@ environments {
     }
     production {
         dataSource {
+            password = "admin"
             dbCreate = "update"
             url="jdbc:mysql://localhost:3306/taxi?useUnicode=true&characterEncoding=UTF-8"
             pooled = true

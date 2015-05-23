@@ -12,7 +12,7 @@ class Reserved {
 
     static constraints = {
         taxiPhone(size: 11..11,blank: false)
-        nickName(size: 2..12,blank: false)
+        nickName(size: 2..64,blank: false)
         phoneNum(size: 11..11,blank: false)
         start(size: 0..20)
         destination(size: 0..20)

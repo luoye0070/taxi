@@ -8,12 +8,13 @@ class Reserve {
     String start        //起点
     String destination  //终点
     int state           //预约状态
-
+    Route route; //路线
     static constraints = {
-        nickName(size: 2..12,blank: false)
+        nickName(size: 2..64,blank: false)
         phoneNum(size: 11..11,blank: false)
         start(size: 0..20)
         destination(size: 0..20)
         state(size:1..1)
+        route(nullable: true);
     }
 }
