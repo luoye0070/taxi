@@ -27,6 +27,11 @@
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 
     <script src="${resource(dir:"js",file: "WdatePicker/WdatePicker.js")}"></script>
+    <script src="${resource(dir:"js",file: "WdatePicker/calendar.js")}"></script>
+    <script src="${resource(dir:"js",file: "WdatePicker/lang/zh-cn.js")}"></script>
+
+    <link rel="stylesheet"  href="${resource(dir:"js",file: "WdatePicker/skin/WdatePicker.css")}"/>
+    <link rel="stylesheet"  href="${resource(dir:"js",file: "WdatePicker/skin/default/datepicker.css")}"/>
 
 </head>
 

@@ -222,12 +222,15 @@ class PhoneReservedController {
     }
 
     def orderReserve = {
+        System.out.println("orderReserve");
         String time = (params.time).replace("/"," ")
         SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        System.out.println("orderReserve->"+params.time+","+params.nickName+","+params.phoneNum+","+params.start+","+params.destination);
         params.time = simpleDate.parse(time)
         def reserve = Reserve.findByTimeAndNickNameAndPhoneNumAndStartAndDestinationAndState(params.time,params.nickName,params.phoneNum,params.start,params.destination,0)
         def taxi = Taxi.findByTaxiPhone(params.taxiPhone)
         if(reserve){
+            System.out.println("orderReserve->"+reserve);
             reserve.state = 1
             def reserveList = new Reserved()
             reserveList.licence = taxi.licence
@@ -238,8 +241,10 @@ class PhoneReservedController {
             reserveList.start = reserve.start
             reserveList.destination = reserve.destination
             if(reserveList.save(flush: true)&&!reserve.delete(flush: true)){
+                System.out.println("orderReserve->1");
                 render "1"
             }else{
+                System.out.println("orderReserve->0");
                 render "0"
             }
         }else{
